@@ -1,0 +1,3 @@
+http://www.infoq.com/articles/mongodb-java-orm-bcd
+http://stackoverflow.com/questions/10170506/inserting-java-object-to-mongodb-collection-using-java
+https://dzone.com/articles/mongodb-and-java
