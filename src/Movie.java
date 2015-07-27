@@ -1,11 +1,23 @@
 
 public class Movie {
+	int id;
 	String name;
 	int year;
 	
-	public Movie(String name, int year) {
+	public Movie(int id,String name, int year) {
+		setId(id);
 		setName(name);
 		setYear(year);
+	}
+
+
+	public int getId() {
+		return id;
+	}
+
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 
@@ -32,3 +44,4 @@ public class Movie {
 				+ year +  "]";
 	}
 }
+
