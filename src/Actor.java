@@ -1,34 +1,22 @@
-import java.io.Serializable;
+import java.util.Date;
 
-import com.mongodb.BasicDBObject;
-
-
-public class Actor extends BasicDBObject {
-	int id;
+public class Actor {
 	String name;
 	String description;
-	String dateBirth;
+	Date dateBirth;
 	
-	public Actor(int id, String name, String description, String dateBirth) {
+	public Actor(String name, String description, Date dateBirth) {
 		setDateBirth(dateBirth);
 		setDescription(description);
-		setId(id);
 		setName(name);
 	}
 
 	@Override
 	public String toString() {
-		return "Actor [id=" + id + ", name=" + name + ", description="
+		return "Actor [name=" + name + ", description="
 				+ description + ", dateBirth=" + dateBirth + "]";
 	}
 
-	public int getId() {
-		return id;
-	}
-
-	public void setId(int id) {
-		this.id = id;
-	}
 
 	public String getName() {
 		return name;
@@ -46,14 +34,13 @@ public class Actor extends BasicDBObject {
 		this.description = description;
 	}
 
-	public String getDateBirth() {
+	public Date getDateBirth() {
 		return dateBirth;
 	}
 
-	public void setDateBirth(String dateBirth) {
+	public void setDateBirth(Date dateBirth) {
 		this.dateBirth = dateBirth;
 	}
-	
 	
 	
 }
