@@ -19,6 +19,9 @@ public class Test {
 
 		DB db = Connector.connectionOpen();	
 		
+		
+//		Task 1 - Collection creation - 10 movie & 8 actor objects
+		
 		Movie movie1 = new Movie(2,"The Terminator", 1984);
 		Movie movie2 = new Movie(3,"Deadpool", 2016);
 		Movie movie3 = new Movie(1,"X-men", 2000);
@@ -55,6 +58,8 @@ public class Test {
 		String act8description = "Alexander Richard Pettyfer was born in Hertfordshire and raised in Windsor. His mother, Lee (Robinson), is an interior designer. His father, Richard Pettyfer, is a fellow actor.";
 		Actor act8 = new Actor(8, "Alex Pettyfer", act8description, new Date(90,3,10));
 		
+		
+//  	Task 2 - Index movies and actors fields
 		
 		db.getCollection("movies").createIndex("year");
 		db.getCollection("actors").createIndex("birthdate");
@@ -107,20 +112,38 @@ public class Test {
 		ListOfActors.deleteAllActorsFromList();
 		ListOfActors.insertActorInList(act4.getId());
 		Connector.connectToDB(CRUDMovies.insertQueryMovie(movie4, movie4.getId()), "movies", db);
+	
+		
+// 		Task 5 - Sort 4 movies by date
+		
+// 		CRUDMovies.returnFourOldestMovies(db);
+		
+
+//		Task6 - Return actors sorted by birthDate from 3 movies	
 		
 //		CRUDActors.returnActorsFromThreeMovies(db);	
-//
-// 		CRUDMovies.returnFourOldestMovies(db);
-//
+		
+
+//		Task 7 - Return all movies from 3 actors with name and year
+		
 // 		CRUDActors.printThreeActorsMovies(db);
-//
+		
+
+//		Task 8 - Remove 2 actors and their ID's in movies.actors
+		
 //		CRUDActors.removeAnActor(db, 3);
 // 		CRUDActors.removeAnActor(db, 6);
-//		
+		
+	
+//		Task 9 - Create a new actor and add him in 4 movies
+		
 //		String act9description = " hsdgkhfdkgj";
-//		Actor actor9 = new Actor(9, "Test Test", act9description, new Date(93, 7, 6));
-//		
+//		Actor actor9 = new Actor(9, "Test Test", act9description, new Date(93, 7, 6));	
 //		CRUDActors.addNewActorInFourMovies(db, actor9);
+		
+		
+//		Task 9(old) - update an actors ID in actors and movies	
+		
 //		CRUDActors.updateActorID(db, 8, 11);
 		
 		}
