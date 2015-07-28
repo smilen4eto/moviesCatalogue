@@ -1,15 +1,28 @@
+package Model;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Movie {
 	int id;
 	String name;
 	int year;
+	public List<Actor> listOfActors;
+
 	
-	public Movie(int id,String name, int year) {
-		setId(id);
+	public Movie(String name, int year) {
+		listOfActors = new ArrayList<Actor>();
+		setId(0);
 		setName(name);
 		setYear(year);
+		
+		
 	}
-
+	
+	public void addActorInMovie(Actor actor){
+		listOfActors.add(actor);
+	}
 
 	public int getId() {
 		return id;

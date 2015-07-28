@@ -1,3 +1,4 @@
+package Mongo;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
@@ -15,16 +16,22 @@ import com.mongodb.MongoClient;
 public class Connector {
 	static List<Integer> actors = new ArrayList<>();
 	
-	static DB connectionOpen(){
+	public static DB connectionOpen(){
 		MongoClient mongoClient = new MongoClient( "localhost" , 27017 );
 		DB db = mongoClient.getDB( "moviesDB" );
+		indexMovAndAct(db);
 		return db;
 	}
 	
-	static void connectToDB(BasicDBObject doc, String collection, DB db){
+	public static void connectToDB(BasicDBObject doc, String collection, DB db){
 		DBCollection coll = db.getCollection(collection);
 				coll.insert(doc);
 	}
 		
+//	Task 2 - Index movies and actors fields
+	public static void indexMovAndAct(DB db){
+		db.getCollection("movies").createIndex("year");
+		db.getCollection("actors").createIndex("birthdate");
+	}
 	}
 

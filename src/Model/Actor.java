@@ -1,12 +1,17 @@
+package Model;
+import java.util.ArrayList;
 import java.util.Date;
+
 
 public class Actor {
 	int id;
 	String name;
 	String description;
 	Date dateBirth;
+	ArrayList<Movie> listOfMovies;
 	
 	public Actor(int id, String name, String description, Date dateBirth) {
+		listOfMovies = new ArrayList<Movie>();
 		setId(id);
 		setDateBirth(dateBirth);
 		setDescription(description);
@@ -19,7 +24,17 @@ public class Actor {
 				+ description + ", dateBirth=" + dateBirth +" id = " + id + "]";
 	}
 	
-
+	public void addMovie(Movie movie){
+		listOfMovies.add(movie);
+	}
+	
+	public void showAllMoviesForActor(){
+		System.out.println(getName());
+		for (Movie movie : listOfMovies) {
+			System.out.println(movie.toString());
+		}
+	}
+	
 	public int getId() {
 		return id;
 	}
