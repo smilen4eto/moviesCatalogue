@@ -8,7 +8,7 @@ public class Movie {
 	int id;
 	String name;
 	int year;
-	public List<Actor> listOfActors;
+	public ArrayList<Actor> listOfActors;
 
 	
 	public Movie(String name, int year) {
@@ -24,6 +24,14 @@ public class Movie {
 		listOfActors.add(actor);
 	}
 
+	public ArrayList<Integer> returnArrayListWithActorIDs(){
+		ArrayList<Integer> arrayList = new ArrayList<Integer>();
+		for (Actor act : listOfActors) {
+			arrayList.add(act.getId());
+		}
+		return arrayList;
+	}
+	
 	public int getId() {
 		return id;
 	}
