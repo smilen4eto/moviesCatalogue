@@ -27,59 +27,79 @@ public class CRUDMovies {
 	}
 	
 	public static int countOfMovies(){
-//		Connector.checkForConnection();
 		int count = 0;
 		count = (int)Connector.moviesColl.count();
-//		Connector.closeConnection();
 		return count;
 	}
 	
 	public static DBCursor queryToSearchMoviesBy(String sort, int count){
-//		Connector.checkForConnection();
 		if (sort.contains("year")) {
 			return Connector.moviesColl.find().limit(count).sort(new BasicDBObject("year", 1));
 		} else if(sort.contains("name")){
 			return Connector.moviesColl.find().limit(count).sort(new BasicDBObject("name", 1));
 		} else if(sort.contains("_id")){
-			return Connector.moviesColl.find().limit(count).sort(new BasicDBObject("_id", 1));
+			return Connector.moviesColl.find().limit(count);
 		} 
-		else return Connector.moviesColl.find().limit(count).sort(new BasicDBObject("_id", 1));
+		else return Connector.moviesColl.find().limit(count);
 	}
 	
 	
 	public static ArrayList<Movie> returnMovies(int count, String sort){
-//		Connector.checkForConnection();
 		ArrayList<Movie> movies = new ArrayList<Movie>();
 		DBCursor cursor = queryToSearchMoviesBy(sort, count);
 		for (DBObject resultMov : cursor) {
-			Movie movie = new Movie((String) resultMov.get("name"), (Integer) resultMov.get("year"));
-			movie.setId((Integer)resultMov.get("_id"));
-			ArrayList<Integer> actIDsArrayList = (ArrayList<Integer>)resultMov.get("actors");
-			for (Integer integer : actIDsArrayList) {
-				DBObject result =CRUDActors.findActorByID(integer);
-				Actor actor = new Actor((Integer)result.get("_id"), (String)result.get("name"), (String)result.get("description"), (Date)result.get("birthdate"));
-				movie.addActorInMovie(actor);
-			}
-			movies.add(movie);
+				Movie movie = new Movie((Integer)resultMov.get("_id"), (String)resultMov.get("name"), (int) resultMov.get("year"));
+//				System.out.println(movie.toString() + "  -- " + resultMov.get("_id"));
+				ArrayList<Integer> actIDsArrayList = (ArrayList<Integer>)resultMov.get("actors");
+				for (Integer integer : actIDsArrayList) {
+					DBObject result =CRUDActors.findActorByID(integer);
+					Actor actor = new Actor((Integer)result.get("_id"), (String)result.get("name"), (String)result.get("description"), (Date)result.get("birthdate"));
+					movie.addActorInMovie(actor);
+				}
+				movies.add(movie);			
 		}
 		return movies;
 	}
 	
 	
 	public static Movie findMovie(String name){
-		DBObject movieDbObject = Connector.moviesColl.findOne(new BasicDBObject("name", name));
-		Movie movie = new Movie((String)movieDbObject.get("name"), (int)movieDbObject.get("year"));
-		return movie;
+		try {
+			DBObject movieDbObject = Connector.moviesColl.findOne(new BasicDBObject("name", name));
+			Movie movie = new Movie((String)movieDbObject.get("name"), (int)movieDbObject.get("year"));
+			return movie;
+		} catch (Exception e) {
+			return new Movie();
+		}
+		
 	}
 	
 	public static ArrayList<Movie> findMoviesByYear(int year){
 		ArrayList<Movie> movies = new ArrayList<Movie>();
 		DBCursor moviesCursor = Connector.moviesColl.find(new BasicDBObject("year", year));
 		for (DBObject movieDbObject : moviesCursor) {
-			Movie movie = new Movie((String)movieDbObject.get("name"), (int)movieDbObject.get("year"));
-			movies.add(movie);
+			try {
+				Movie movie = new Movie((String)movieDbObject.get("name"), (int)movieDbObject.get("year"));
+				movies.add(movie);
+			} catch (Exception e) {
+			}
 		}
 		return movies;
+	}
+	
+	public static Movie findMovieByID(int id){
+		try {
+			DBObject movieDbObject = Connector.moviesColl.findOne(new BasicDBObject("_id", id));
+			Movie movie = new Movie((Integer)movieDbObject.get("_id"),(String)movieDbObject.get("name"), (int)movieDbObject.get("year"));
+			ArrayList<Integer> actIDsArrayList = (ArrayList<Integer>)movieDbObject.get("actors");
+			for (Integer integer : actIDsArrayList) {
+				DBObject result =CRUDActors.findActorByID(integer);
+				Actor actor = new Actor((Integer)result.get("_id"), (String)result.get("name"), (String)result.get("description"), (Date)result.get("birthdate"));
+				movie.addActorInMovie(actor);
+			}
+			return movie;
+		} catch (Exception e) {
+			return new Movie();
+		}
 	}
 	
 	public static void updateMovies(int searchedID, ArrayList<Integer> arrayList) {
@@ -87,7 +107,10 @@ public class CRUDMovies {
 				new BasicDBObject("_id", searchedID),
 				new BasicDBObject("$set",
 						new BasicDBObject("actors", arrayList)));
-		Connector.closeConnection();
+
 	}
 	
+	public static void deleteAMovie(int id){
+		Connector.moviesColl.remove(new BasicDBObject("_id", id));
+	}
 }

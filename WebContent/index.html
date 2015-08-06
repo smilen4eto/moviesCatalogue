@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>Movie Catalog</title>
+<link rel="stylesheet" href="css/styles.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript"></script>
+<script src="js/main.js"></script>
+<script type="text/javascript"></script>
+
+
+</head>
+
+<body>
+
+	<div class="headerMenu">
+
+		<input type="text" id="searchKey" />
+		<button id="btnSearch">Search</button>
+		<button id="btnAddMovie">New Movie</button>
+		<button id="btnAddActor">New Actor</button>
+	</div>
+
+	<div class="leftAreaTitle">
+		<em> Movies</em>
+	</div>
+
+	<div class="leftArea">
+		<ol id="movieTable"></ol>
+	</div>
+
+	<div class="mainAreaTitle">
+		<em> Actors</em>
+	</div>
+
+	<div class="mainArea">
+		<ol id="actorTable"></ol>
+	</div>
+
+	<div class="addNewActor">
+		<b>New Actor:</b> <label>Name:</label> <input
+			type="text" id="name" name="name" required> <label>Description:</label>
+		<input type="text" id="description" name="description" required/> <label>Birth
+			date:</label> <input type="date" id="birthdate" name="dateBirth" required/>
+		<div id="textBoxesMoviesNew">
+			<label>ID of the movie the actor acted:</label> <input type="text"
+				id="textbox1" name="movieID1" required />
+		</div>
+		<button id="addMovieField">Add one more movie field</button>
+		<button id="btnSave" href="javascript:history.go(0)">Save</button> 
+	</div>
+
+	<div class="addNewMovie">
+		<b>New movie:</b> <label> </label> <label>Name:</label> <input
+			type="text" id="movieName" name="name" required> <label>Year:</label>
+		<input type="number" id="movieYear" name="year" required/>
+		<div id="textBoxesActorsNew">
+			<label>Actors that acted in the movie:</label> 
+		</div>
+		<button id="addActorField">Add one more actor field</button>
+		<button id="btnSaveMovie" href="javascript:history.go(0)">Save</button>
+
+	</div>
+
+	<div class="rightAreaMovie">
+		<label>Id:</label> <input id="movieID" name="id" type="number" disabled />
+		<label>Name:</label> <input type="text" id="movieName1" name="name" disabled>
+		<label>Year:</label> <input type="number" id="movieYear1" name="year" disabled />
+		<div id="textBoxesActors"></div>
+		<button id="btnEditMovie">Edit</button>
+		<button id="btnDeleteMovie" href="javascript:history.go(0)" >Delete</button>
+		<button id="btnUpdateMovie" href="javascript:history.go(0)" >Update</button>
+	</div>
+
+	<div class="rightAreaActor">
+		<label>Id:</label> <input id="actorID" name="id" type="text" disabled />
+		<label>Name:</label> <input type="text" id="actorName" name="name"
+			disabled> <label>Description:</label> <input type="text"
+			id="actorDescription" name="description" placeholder="Autosize" disabled /> <label>Birth
+			date:</label> <input type="datetime" id="actorBirthdate" name="birthdate"
+			disabled />
+		<div id="textBoxesMovies">
+			<label>ID of the movie the actor acted:</label>
+		</div>
+
+		<button id="btnEditActor">Edit</button>
+		<button id="btnDeleteActor" href="javascript:history.go(0)" >Delete</button>
+		<button id="btnUpdateActor" href="javascript:history.go(0)" >Update</button>
+	</div>
+</body>
+</html>

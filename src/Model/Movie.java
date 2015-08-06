@@ -9,15 +9,36 @@ public class Movie {
 	String name;
 	int year;
 	public ArrayList<Actor> listOfActors;
+	public String actorName;
+	
+	public Movie(){
+		listOfActors = new ArrayList<Actor>();
+		setId(0);
+		setName(null);
+		setYear(0);
+	}
 
+	public Movie(int id,String name, int year, String actorName){
+		setId(id);
+		setName(name);
+		setYear(year);
+		this.actorName = actorName;
+	}
 	
 	public Movie(String name, int year) {
 		listOfActors = new ArrayList<Actor>();
 		setId(0);
 		setName(name);
 		setYear(year);
-		
-		
+
+	}
+
+	
+	public Movie(int id,String name, int year){
+		listOfActors = new ArrayList<Actor>();
+		setId(id);
+		setName(name);
+		setYear(year);
 	}
 	
 	public void addActorInMovie(Actor actor){
@@ -38,7 +59,7 @@ public class Movie {
 
 
 	public void setId(int id) {
-		this.id = id;
+			this.id = id;
 	}
 
 
@@ -48,6 +69,7 @@ public class Movie {
 
 	public void setName(String name) {
 		this.name = name;
+
 	}
 
 	public int getYear() {
@@ -55,7 +77,7 @@ public class Movie {
 	}
 
 	public void setYear(int year) {
-		this.year = year;
+			this.year = year;
 	}
 
 

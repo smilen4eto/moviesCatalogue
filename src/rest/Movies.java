@@ -1,4 +1,4 @@
-package web;
+package rest;
 
 import javax.sound.midi.Track;
 import javax.ws.rs.Consumes;
@@ -7,7 +7,11 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.UriInfo;
+
+import org.json.JSONObject;
 
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
@@ -24,7 +28,6 @@ public class Movies {
 	@GET()
 	@Produces(MediaType.APPLICATION_JSON)
 	public String returnAllMovies(){
-//		Connector.checkForConnection();
 		int count = MovieService.returnTheCountOfAllMovies();
 		return MovieService.printMoviesSortedBy(count, "_id");
 	}
@@ -40,7 +43,6 @@ public class Movies {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public String returnIMovies(@PathParam("i") int i){
-//		Connector.checkForConnection();
 		return MovieService.printMoviesSortedBy(i, "year");
 	}
 	
@@ -56,7 +58,6 @@ public class Movies {
 	@GET
 	@Produces(MediaType.APPLICATION_JSON)
 	public String returnMoviesAlpabetically(){
-//		Connector.checkForConnection();
 		int count = MovieService.returnTheCountOfAllMovies();
 		return MovieService.printMoviesSortedBy(count, "name");
 	}
@@ -70,9 +71,10 @@ public class Movies {
 	
 	@Path("/find={name}")
 	@POST
+	@Consumes(MediaType.TEXT_PLAIN)
 	@Produces(MediaType.APPLICATION_JSON)
-	public String returnMovieByName(@PathParam("name") String name){
-		return MovieService.findMovieByName(name);
+	public String returnMovieByName(@Context UriInfo uriInfo){
+		return MovieService.findMovieByName(uriInfo.getPathParameters(true).getFirst("name").toString());
 	}
 	
 	@Path("/find/{year}")
@@ -80,5 +82,20 @@ public class Movies {
 	@Produces(MediaType.APPLICATION_JSON)
 	public String returnMovieByYear(@PathParam("year") int year){
 		return MovieService.findMoviesByYear(year);
+	}
+	
+	@Path("/findID={id}")
+	@POST
+	@Produces(MediaType.APPLICATION_JSON)
+	public String returnMovieByID(@PathParam("id") int id){
+		return MovieService.returnMovieByID(id);
+	}
+	
+	@Path("update")
+	@POST
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.TEXT_PLAIN)
+	public String updateMovie(){
+		return "";
 	}
 }

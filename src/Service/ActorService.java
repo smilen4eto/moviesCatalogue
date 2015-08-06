@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.mongodb.DB;
 
 import Model.Actor;
@@ -18,15 +19,19 @@ public class ActorService {
 		ListOfActors.deleteAllActorsFromList();
 		for (Actor actor : actors) {
 			if (CRUDActors.findActorByID(actor.getId())== null)
-				CRUDActors.insertActors(actor, actor.getId());
+				CRUDActors.insertActors(actor);
 			
 		ListOfActors.insertActorInList(actor.getId());
 		}
 		return ListOfActors.actors;
 	}
 	
-	public static String printThreeActorsSortedByBirthDate(){
-		ArrayList<Actor> actors = CRUDActors.returnActorsFromThreeMovies();	
+	public static String returnAllActorsSortedByName(){
+		return "";
+	}
+	
+	public static String printActorsSortedByBirthDate(){
+		ArrayList<Actor> actors = CRUDActors.returnActor();	
 		Gson gson = new Gson();
 		String json = gson.toJson(actors);
 		return json;
@@ -37,9 +42,11 @@ public class ActorService {
 		System.out.println("Actor number " + actorID + " has been successfully removed.");
 	}
 	
-	public static void addActorInFourMovies(Actor actor){
-		CRUDActors.addNewActorInFourMovies(actor);
-		System.out.println(actor.getName() + " has been added successfully.");
+	public static void addActorInMovie(String movieString){
+		Gson gson = new Gson();
+		Movie movie = gson.fromJson(movieString, Movie.class);
+		CRUDActors.addNewActorInFourMovies(movie.actorName, movie);
+//		System.out.println(actor.getName() + " has been added successfully.");
 	}
 	
 	public static void changeActorID(int oldID, int newID){
@@ -53,4 +60,22 @@ public class ActorService {
 		CRUDMovies.updateMovies(movie.getId(), arrayList);
 	}
 
+	public static String findActorByName(String name){
+		Gson gson = new Gson();
+		String json = gson.toJson(CRUDActors.findActorByName(name));
+		return json;
+	}
+	
+	public static String findActorByID(int id){
+		Gson gson = new Gson();
+		String json = gson.toJson(CRUDActors.printActorMovieByID(id));
+		return json;
+	}
+	
+	public static int addAnActor(String actor){
+		Gson gSon=  new GsonBuilder().setDateFormat("yyyy-MM-dd").create();
+		Actor actor2 = gSon.fromJson(actor, Actor.class);
+		System.out.println(actor2.toString());
+		return CRUDActors.insertActors(actor2);
+	}
 }

@@ -57,6 +57,11 @@
 	<version>3.0.0</version>
 </dependency>
 <dependency>
+    <groupId>com.efsavage.jquery</groupId>
+    <artifactId>jquery-maven</artifactId>
+    <version>1.7.2</version>
+</dependency>
+<dependency>
 	<groupId>com.google.code.gson</groupId>
 	<artifactId>gson</artifactId>
 	<version>2.3.1</version>

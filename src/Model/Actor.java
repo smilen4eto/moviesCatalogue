@@ -10,6 +10,14 @@ public class Actor {
 	Date dateBirth;
 	ArrayList<Movie> listOfMovies;
 	
+	public Actor(){
+		listOfMovies = new ArrayList<Movie>();
+		setId(0);
+		setDateBirth(new Date());
+		setDescription(null);
+		setName(null);
+	}
+	
 	public Actor(int id, String name, String description, Date dateBirth) {
 		listOfMovies = new ArrayList<Movie>();
 		setId(id);
@@ -40,7 +48,11 @@ public class Actor {
 	}
 
 	public void setId(int id) {
-		this.id = id;
+		if (id>0) {
+			this.id = id;
+		}else {
+			this.id = 0;
+		}
 	}
 
 	public String getName() {
@@ -48,7 +60,11 @@ public class Actor {
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		if (name != null)
+			this.name = name;
+		else {
+			this.name = " ";
+		}
 	}
 
 	public String getDescription() {
@@ -56,7 +72,10 @@ public class Actor {
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		if (description != null)
+			this.description = description;
+		else 
+			this.description = " ";
 	}
 
 	public Date getDateBirth() {
@@ -64,7 +83,10 @@ public class Actor {
 	}
 
 	public void setDateBirth(Date dateBirth) {
-		this.dateBirth = dateBirth;
+		if (dateBirth != null)
+			this.dateBirth = dateBirth;
+		else 
+			this.dateBirth = new Date();
 	}
 	
 	

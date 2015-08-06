@@ -53,6 +53,7 @@ public class Connector {
 	public static void indexMovAndAct(DB db){
 		db.getCollection("movies").createIndex("year");
 		db.getCollection("actors").createIndex("birthdate");
+
 	}
 	}
 
